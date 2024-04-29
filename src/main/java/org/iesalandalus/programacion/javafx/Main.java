@@ -100,7 +100,7 @@ public class Main extends Application {
 		cbExtras.setVisibleRowCount(2);
 		cbExtras.setItems(FXCollections.observableArrayList("Navegador", "Manos libres", "Lunas tintadas"));
 
-        Label lbSelecciona  = new Label("Elige los extras: ");
+        /*Label lbSelecciona  = new Label("Elige los extras: ");
         lbElige.setFont(Font.font(20));
 
         Separator separador = new Separator();
@@ -110,11 +110,14 @@ public class Main extends Application {
 		VBox cajasEleccionScroll = new VBox();
 		cajasEleccionScroll.setPadding(new Insets(40));
 		cajasEleccionScroll.getChildren().addAll(lbElige, cbExtras, lbSelecciona, lvComplementos );
-		cajasEleccionScroll.setAlignment(Pos.CENTER);
+		cajasEleccionScroll.setAlignment(Pos.CENTER);*/
 
         Label lbEligeDeslizador = new Label("Elige el porcentaje: ");
         lbEligeDeslizador.setFont(Font.font(20));
 
+        Tooltip infoPorcentaje = new Tooltip("Elige un número entre el 0 y el 100.");
+        infoPorcentaje.setFont(Font.font("Arial", 15));
+        infoPorcentaje.setWrapText(true);
         Slider porcentaje = new Slider();
         porcentaje.setMin(0);
         porcentaje.setMax(100);
@@ -126,6 +129,7 @@ public class Main extends Application {
         porcentaje.setMinorTickCount(4);
         porcentaje.setBlockIncrement(10);
         porcentaje.setSnapToTicks(true);
+        porcentaje.setTooltip(infoPorcentaje);
 
         HBox deslizador = new HBox();
         raiz.setPadding(new Insets(40));
@@ -151,9 +155,46 @@ public class Main extends Application {
         tablaPersonajes.getChildren().setAll(lbPersonajes, tvPersonajes);
         tablaPersonajes.setAlignment(Pos.CENTER);
 
-        VBox.setMargin(hlGoogle, new Insets(0, 0, 0, 0));
-        raiz.getChildren().addAll(lbTexto, lbImagen, hlGoogle, lbNombre, tfNombre, lbContrasena, tfContrasena, /*botones,*/ cajasEleccionScroll, deslizador, tablaPersonajes);
+        Label lbPersonajesArbol = new Label("Personajes:");
+        TreeItem<String> tiRaiz = new TreeItem<> ("Personajes");
+        tiRaiz.setExpanded(true);
+        TreeItem<String> tiMasculinos = new TreeItem<> ("Masculinos");
+        tiRaiz.getChildren().add(tiMasculinos);
+        TreeItem<String> ti1 = new TreeItem<> ("Pepito Grillo");
+        tiMasculinos.getChildren().add(ti1);
+        TreeItem<String> ti2 = new TreeItem<> ("Bob Esponja");
+        tiMasculinos.getChildren().add(ti2);
+        TreeItem<String> ti3 = new TreeItem<> ("Juan Sin Miedo");
+        tiMasculinos.getChildren().add(ti3);
+        TreeItem<String> ti4 = new TreeItem<> ("Perico De Los Palotes");
+        tiMasculinos.getChildren().add(ti4);
+        TreeItem<String> tiFemeninos = new TreeItem<> ("Femeninos");
+        tiRaiz.getChildren().add(tiFemeninos);
+        TreeItem<String> ti5 = new TreeItem<> ("Juana La Loca");
+        tiFemeninos.getChildren().add(ti5);
+        TreeView<String> tvPersonajesArbol = new TreeView<> (tiRaiz);
 
+        tvPersonajes.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        VBox vistaArbol = new VBox();
+        vistaArbol.setPadding(new Insets(40));
+        vistaArbol.setSpacing(10);
+        vistaArbol.getChildren().addAll(lbPersonajesArbol, tvPersonajesArbol);
+
+        MenuBar mbPrincipal = new MenuBar();
+        Menu mFichero = new Menu("Fichero");
+        MenuItem miAbrir = new MenuItem("Abrir");
+        MenuItem miGuardar = new MenuItem("Guardar");
+        SeparatorMenuItem separador = new SeparatorMenuItem();
+        MenuItem miSalir = new MenuItem("Salir");
+        mFichero.getItems().addAll(miAbrir, miGuardar, separador, miSalir);
+        Menu mAyuda = new Menu("Ayuda");
+        MenuItem miAcercaDe = new MenuItem("Acerca de...");
+        mAyuda.getItems().add(miAcercaDe);
+        mbPrincipal.getMenus().addAll(mFichero, mAyuda);
+
+        VBox.setMargin(hlGoogle, new Insets(0, 0, 0, 0));
+        raiz.getChildren().addAll(mbPrincipal, lbTexto, lbImagen, hlGoogle, lbNombre, tfNombre, lbContrasena, tfContrasena /*botones, cajasEleccionScroll*/, deslizador, tablaPersonajes, vistaArbol);
 
         Scene escena = new Scene(raiz, 800, 900);
         escenarioPrincipal.setTitle("Alejandro");
