@@ -1,10 +1,10 @@
-package org.iesalandalus.programacion.javafx;
+package org.iesalandalus.programacion.javafx.fxml;
 
 import org.iesalandalus.programacion.javafx.fxml.FXML;
 
-public class LanzadoraMain {
+public class LanzadoraMainFXML {
 
 	public static void main(String[] args) {
-		GridPanel.main(args);
+		FXML.main(args);
 	}
 }

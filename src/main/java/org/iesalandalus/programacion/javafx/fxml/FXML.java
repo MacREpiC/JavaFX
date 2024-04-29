@@ -1,4 +1,4 @@
-package org.iesalandalus.programacion.javafx;
+package org.iesalandalus.programacion.javafx.fxml;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainFXML extends Application {
+public class FXML extends Application {
     @Override
     public void start(Stage escenarioPrincipal) throws IOException {
         Parent raiz = FXMLLoader.load(getClass().getResource("/vistas/gridPanel.fxml"));
